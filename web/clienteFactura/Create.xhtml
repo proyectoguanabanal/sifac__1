@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteFacturaCreateDlg" widgetVar="ClienteFacturaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteFacturaTitle}">
+            <h:form id="ClienteFacturaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteFacturaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteFacturaLabel_codClienteFactura}" for="codClienteFactura" />
+                       
+                        <p:inputText id="codClienteFactura" value="#{clienteFacturaController.selected.codClienteFactura}" title="#{bundle.CreateClienteFacturaTitle_codClienteFactura}" required="true" requiredMessage="#{bundle.CreateClienteFacturaRequiredMessage_codClienteFactura}">
+                        
+                         <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateClienteFacturaLabel_codUsuario}" for="codUsuario" />
+                        <p:selectOneMenu id="codUsuario" value="#{clienteFacturaController.selected.codUsuario}" required="true" requiredMessage="#{bundle.EditClienteFacturaRequiredMessage_codUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="codUsuarioItem"
+                                           itemValue="#{codUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateClienteFacturaLabel_codFactura}" for="codFactura" />
+                        <p:selectOneMenu id="codFactura" value="#{clienteFacturaController.selected.codFactura}" required="true" requiredMessage="#{bundle.EditClienteFacturaRequiredMessage_codFactura}">
+                            <f:selectItems value="#{facturaController.itemsAvailableSelectOne}"
+                                           var="codFacturaItem"
+                                           itemValue="#{codFacturaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clienteFacturaController.create}" value="#{bundle.Save}" update="display,:ClienteFacturaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteFacturaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteFacturaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

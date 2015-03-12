@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SuministrosProveedorViewDlg" widgetVar="SuministrosProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSuministrosProveedorTitle}">
+            <h:form id="SuministrosProveedorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{suministrosProveedorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSuministrosProveedorLabel_codSuministrosProveedor}"/>
+                        <h:outputText value="#{suministrosProveedorController.selected.codSuministrosProveedor}" title="#{bundle.ViewSuministrosProveedorTitle_codSuministrosProveedor}"/>
+                        <h:outputText value="#{bundle.ViewSuministrosProveedorLabel_codSuministros}"/>
+                        <h:outputText value="#{suministrosProveedorController.selected.codSuministros}" title="#{bundle.ViewSuministrosProveedorTitle_codSuministros}"/>
+                        <h:outputText value="#{bundle.ViewSuministrosProveedorLabel_codProveedor}"/>
+                        <h:outputText value="#{suministrosProveedorController.selected.codProveedor}" title="#{bundle.ViewSuministrosProveedorTitle_codProveedor}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SuministrosProveedorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

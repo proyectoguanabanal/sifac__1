@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecargoEditDlg" widgetVar="RecargoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRecargoTitle}">
+            <h:form id="RecargoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recargoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRecargoLabel_codRecargo}" for="codRecargo" />
+                        <p:inputText id="codRecargo" value="#{recargoController.selected.codRecargo}" title="#{bundle.EditRecargoTitle_codRecargo}" required="true" requiredMessage="#{bundle.EditRecargoRequiredMessage_codRecargo}"/>
+                        <p:outputLabel value="#{bundle.EditRecargoLabel_valorRecargo}" for="valorRecargo" />
+                        <p:inputText id="valorRecargo" value="#{recargoController.selected.valorRecargo}" title="#{bundle.EditRecargoTitle_valorRecargo}" required="true" requiredMessage="#{bundle.EditRecargoRequiredMessage_valorRecargo}"/>
+                        <p:outputLabel value="#{bundle.EditRecargoLabel_valorMulta}" for="valorMulta" />
+                        <p:inputText id="valorMulta" value="#{recargoController.selected.valorMulta}" title="#{bundle.EditRecargoTitle_valorMulta}" required="true" requiredMessage="#{bundle.EditRecargoRequiredMessage_valorMulta}"/>
+                        <p:outputLabel value="#{bundle.EditRecargoLabel_fechaCorte}" for="fechaCorte" />
+                        <p:calendar id="fechaCorte" pattern="MM/dd/yyyy HH:mm:ss" value="#{recargoController.selected.fechaCorte}" title="#{bundle.EditRecargoTitle_fechaCorte}" required="true" requiredMessage="#{bundle.EditRecargoRequiredMessage_fechaCorte}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecargoLabel_codTipoRecargo}" for="codTipoRecargo" />
+                        <p:selectOneMenu id="codTipoRecargo" value="#{recargoController.selected.codTipoRecargo}" required="true" requiredMessage="#{bundle.EditRecargoRequiredMessage_codTipoRecargo}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoRecargoController.itemsAvailableSelectOne}"
+                                           var="codTipoRecargoItem"
+                                           itemValue="#{codTipoRecargoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recargoController.update}" value="#{bundle.Save}" update="display,:RecargoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RecargoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RecargoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

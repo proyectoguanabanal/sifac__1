@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReconexionCreateDlg" widgetVar="ReconexionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReconexionTitle}">
+            <h:form id="ReconexionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reconexionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReconexionLabel_codReconexion}" for="codReconexion" />
+                       
+                        <p:inputText id="codReconexion" value="#{reconexionController.selected.codReconexion}" title="#{bundle.CreateReconexionTitle_codReconexion}" required="true" requiredMessage="#{bundle.CreateReconexionRequiredMessage_codReconexion}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateReconexionLabel_fechaReconexion}" for="fechaReconexion" />
+                        <p:calendar id="fechaReconexion" pattern="MM/dd/yyyy HH:mm:ss" value="#{reconexionController.selected.fechaReconexion}" title="#{bundle.EditReconexionTitle_fechaReconexion}" required="true" requiredMessage="#{bundle.EditReconexionRequiredMessage_fechaReconexion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReconexionLabel_codRecargo}" for="codRecargo" />
+                        <p:selectOneMenu id="codRecargo" value="#{reconexionController.selected.codRecargo}" required="true" requiredMessage="#{bundle.EditReconexionRequiredMessage_codRecargo}">
+                            <f:selectItems value="#{recargoController.itemsAvailableSelectOne}"
+                                           var="codRecargoItem"
+                                           itemValue="#{codRecargoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reconexionController.create}" value="#{bundle.Save}" update="display,:ReconexionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReconexionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReconexionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteContratoCreateDlg" widgetVar="ClienteContratoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteContratoTitle}">
+            <h:form id="ClienteContratoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteContratoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteContratoLabel_codClienteContrato}" for="codClienteContrato" />
+                        <p:inputText id="codClienteContrato" value="#{clienteContratoController.selected.codClienteContrato}" title="#{bundle.CreateClienteContratoTitle_codClienteContrato}" required="true" requiredMessage="#{bundle.CreateClienteContratoRequiredMessage_codClienteContrato}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateClienteContratoLabel_codUsuario}" for="codUsuario" />
+                        <p:selectOneMenu id="codUsuario" value="#{clienteContratoController.selected.codUsuario}" required="true" requiredMessage="#{bundle.EditClienteContratoRequiredMessage_codUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="codUsuarioItem"
+                                           itemValue="#{codUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateClienteContratoLabel_codContrato}" for="codContrato" />
+                        <p:selectOneMenu id="codContrato" value="#{clienteContratoController.selected.codContrato}" required="true" requiredMessage="#{bundle.EditClienteContratoRequiredMessage_codContrato}">
+                            <f:selectItems value="#{contratoController.itemsAvailableSelectOne}"
+                                           var="codContratoItem"
+                                           itemValue="#{codContratoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clienteContratoController.create}" value="#{bundle.Save}" update="display,:ClienteContratoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteContratoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteContratoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

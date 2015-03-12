@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaRecargoCreateDlg" widgetVar="FacturaRecargoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFacturaRecargoTitle}">
+            <h:form id="FacturaRecargoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaRecargoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFacturaRecargoLabel_codFacturaRecargo}" for="codFacturaRecargo" />
+                        
+                        <p:inputText id="codFacturaRecargo" value="#{facturaRecargoController.selected.codFacturaRecargo}" title="#{bundle.CreateFacturaRecargoTitle_codFacturaRecargo}" required="true" requiredMessage="#{bundle.CreateFacturaRecargoRequiredMessage_codFacturaRecargo}">
+                        
+                        
+                         <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateFacturaRecargoLabel_codRecargo}" for="codRecargo" />
+                        <p:selectOneMenu id="codRecargo" value="#{facturaRecargoController.selected.codRecargo}" required="true" requiredMessage="#{bundle.EditFacturaRecargoRequiredMessage_codRecargo}">
+                            <f:selectItems value="#{recargoController.itemsAvailableSelectOne}"
+                                           var="codRecargoItem"
+                                           itemValue="#{codRecargoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateFacturaRecargoLabel_codFactura}" for="codFactura" />
+                        <p:selectOneMenu id="codFactura" value="#{facturaRecargoController.selected.codFactura}" required="true" requiredMessage="#{bundle.EditFacturaRecargoRequiredMessage_codFactura}">
+                            <f:selectItems value="#{facturaController.itemsAvailableSelectOne}"
+                                           var="codFacturaItem"
+                                           itemValue="#{codFacturaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaRecargoController.create}" value="#{bundle.Save}" update="display,:FacturaRecargoListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaRecargoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaRecargoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

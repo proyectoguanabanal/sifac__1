@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
+            <h:form id="UsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_codUsuario}" for="codUsuario" />
+                       
+                        <p:inputText id="codUsuario" value="#{usuarioController.selected.codUsuario}" title="#{bundle.CreateUsuarioTitle_codUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_codUsuario}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_cedula}" for="cedula" />
+                        
+                        <p:inputText id="cedula" value="#{usuarioController.selected.cedula}" title="#{bundle.CreateUsuarioTitle_cedula}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cedula}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                            
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_primerNombre}" for="primerNombre" />
+                        
+                        <p:inputText id="primerNombre" value="#{usuarioController.selected.primerNombre}" title="#{bundle.CreateUsuarioTitle_primerNombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_primerNombre}">
+                        <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_segundoNombre}" for="segundoNombre" />
+                        
+                        <p:inputText id="segundoNombre" value="#{usuarioController.selected.segundoNombre}" title="#{bundle.CreateUsuarioTitle_segundoNombre}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_primerApellido}" for="primerApellido" />
+                        
+                        <p:inputText id="primerApellido" value="#{usuarioController.selected.primerApellido}" title="#{bundle.CreateUsuarioTitle_primerApellido}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_primerApellido}">
+                        <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_segundoApellido}" for="segundoApellido" />
+                        
+                        <p:inputText id="segundoApellido" value="#{usuarioController.selected.segundoApellido}" title="#{bundle.CreateUsuarioTitle_segundoApellido}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
+                        
+                        <p:inputText id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.CreateUsuarioTitle_direccion}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_direccion}">
+                        <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_numeroDePersonasQueQueHabitanEnLaCas}" for="numeroDePersonasQueQueHabitanEnLaCas" />
+                        
+                        <p:inputText id="numeroDePersonasQueQueHabitanEnLaCas" value="#{usuarioController.selected.numeroDePersonasQueQueHabitanEnLaCas}" title="#{bundle.CreateUsuarioTitle_numeroDePersonasQueQueHabitanEnLaCas}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_numeroDePersonasQueQueHabitanEnLaCas}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefonoFijo}" for="telefonoFijo" />
+                        
+                        <p:inputText id="telefonoFijo" value="#{usuarioController.selected.telefonoFijo}" title="#{bundle.CreateUsuarioTitle_telefonoFijo}" >
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefonoMovil}" for="telefonoMovil" />
+                        
+                        <p:inputText id="telefonoMovil" value="#{usuarioController.selected.telefonoMovil}" title="#{bundle.CreateUsuarioTitle_telefonoMovil}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefonoMovil}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
+                        
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}">
+                        <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

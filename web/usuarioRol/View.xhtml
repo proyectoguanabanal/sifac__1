@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioRolViewDlg" widgetVar="UsuarioRolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioRolTitle}">
+            <h:form id="UsuarioRolViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioRolController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsuarioRolLabel_codUsuarioRol}"/>
+                        <h:outputText value="#{usuarioRolController.selected.codUsuarioRol}" title="#{bundle.ViewUsuarioRolTitle_codUsuarioRol}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioRolLabel_codUsuario}"/>
+                        <h:outputText value="#{usuarioRolController.selected.codUsuario}" title="#{bundle.ViewUsuarioRolTitle_codUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioRolLabel_codRol}"/>
+                        <h:outputText value="#{usuarioRolController.selected.codRol}" title="#{bundle.ViewUsuarioRolTitle_codRol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioRolViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

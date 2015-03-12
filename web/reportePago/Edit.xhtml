@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReportePagoEditDlg" widgetVar="ReportePagoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditReportePagoTitle}">
+            <h:form id="ReportePagoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reportePagoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditReportePagoLabel_codReportePago}" for="codReportePago" />
+                        <p:inputText id="codReportePago" value="#{reportePagoController.selected.codReportePago}" title="#{bundle.EditReportePagoTitle_codReportePago}" required="true" requiredMessage="#{bundle.EditReportePagoRequiredMessage_codReportePago}"/>
+                        <p:outputLabel value="#{bundle.EditReportePagoLabel_mesPago}" for="mesPago" />
+                        <p:calendar id="mesPago" pattern="MM/dd/yyyy HH:mm:ss" value="#{reportePagoController.selected.mesPago}" title="#{bundle.EditReportePagoTitle_mesPago}" required="true" requiredMessage="#{bundle.EditReportePagoRequiredMessage_mesPago}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reportePagoController.update}" value="#{bundle.Save}" update="display,:ReportePagoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReportePagoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReportePagoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

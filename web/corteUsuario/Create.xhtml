@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorteUsuarioCreateDlg" widgetVar="CorteUsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCorteUsuarioTitle}">
+            <h:form id="CorteUsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corteUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCorteUsuarioLabel_codCorteUsuario}" for="codCorteUsuario" />
+                        
+                        <p:inputText id="codCorteUsuario" value="#{corteUsuarioController.selected.codCorteUsuario}" title="#{bundle.CreateCorteUsuarioTitle_codCorteUsuario}" required="true" requiredMessage="#{bundle.CreateCorteUsuarioRequiredMessage_codCorteUsuario}">
+                        
+                         <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateCorteUsuarioLabel_codUsuario}" for="codUsuario" />
+                        <p:selectOneMenu id="codUsuario" value="#{corteUsuarioController.selected.codUsuario}" required="true" requiredMessage="#{bundle.EditCorteUsuarioRequiredMessage_codUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="codUsuarioItem"
+                                           itemValue="#{codUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCorteUsuarioLabel_codCorte}" for="codCorte" />
+                        <p:selectOneMenu id="codCorte" value="#{corteUsuarioController.selected.codCorte}" required="true" requiredMessage="#{bundle.EditCorteUsuarioRequiredMessage_codCorte}">
+                            <f:selectItems value="#{corteController.itemsAvailableSelectOne}"
+                                           var="codCorteItem"
+                                           itemValue="#{codCorteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{corteUsuarioController.create}" value="#{bundle.Save}" update="display,:CorteUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'CorteUsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorteUsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

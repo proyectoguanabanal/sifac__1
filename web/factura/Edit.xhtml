@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaEditDlg" widgetVar="FacturaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFacturaTitle}">
+            <h:form id="FacturaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFacturaLabel_codFactura}" for="codFactura" />
+                        <p:inputText id="codFactura" value="#{facturaController.selected.codFactura}" title="#{bundle.EditFacturaTitle_codFactura}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_codFactura}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaLabel_valorAPagar}" for="valorAPagar" />
+                        <p:inputText id="valorAPagar" value="#{facturaController.selected.valorAPagar}" title="#{bundle.EditFacturaTitle_valorAPagar}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_valorAPagar}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaLabel_fechaPago}" for="fechaPago" />
+                        <p:calendar id="fechaPago" pattern="MM/dd/yyyy HH:mm:ss" value="#{facturaController.selected.fechaPago}" title="#{bundle.EditFacturaTitle_fechaPago}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_fechaPago}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaController.update}" value="#{bundle.Save}" update="display,:FacturaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FacturaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

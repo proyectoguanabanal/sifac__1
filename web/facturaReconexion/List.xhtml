@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFacturaReconexionTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="FacturaReconexionListForm">
+                <p:panel header="#{bundle.ListFacturaReconexionTitle}">
+                    <p:dataTable id="datalist" value="#{facturaReconexionController.items}" var="item"
+                                 selectionMode="single" selection="#{facturaReconexionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.codFacturaReconexion}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacturaReconexionTitle_codFacturaReconexion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codFacturaReconexion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacturaReconexionTitle_codReconexion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codReconexion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFacturaReconexionTitle_codFactura}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codFactura}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{facturaReconexionController.prepareCreate}" update=":FacturaReconexionCreateForm" oncomplete="PF('FacturaReconexionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FacturaReconexionViewForm" oncomplete="PF('FacturaReconexionViewDialog').show()" disabled="#{empty facturaReconexionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FacturaReconexionEditForm" oncomplete="PF('FacturaReconexionEditDialog').show()" disabled="#{empty facturaReconexionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{facturaReconexionController.destroy}" update=":growl,datalist" disabled="#{empty facturaReconexionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

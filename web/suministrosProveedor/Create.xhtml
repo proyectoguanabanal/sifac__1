@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SuministrosProveedorCreateDlg" widgetVar="SuministrosProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSuministrosProveedorTitle}">
+            <h:form id="SuministrosProveedorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{suministrosProveedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSuministrosProveedorLabel_codSuministrosProveedor}" for="codSuministrosProveedor" />
+                        
+                        <p:inputText id="codSuministrosProveedor" value="#{suministrosProveedorController.selected.codSuministrosProveedor}" title="#{bundle.CreateSuministrosProveedorTitle_codSuministrosProveedor}" required="true" requiredMessage="#{bundle.CreateSuministrosProveedorRequiredMessage_codSuministrosProveedor}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateSuministrosProveedorLabel_codSuministros}" for="codSuministros" />
+                        <p:selectOneMenu id="codSuministros" value="#{suministrosProveedorController.selected.codSuministros}" required="true" requiredMessage="#{bundle.EditSuministrosProveedorRequiredMessage_codSuministros}">
+                            <f:selectItems value="#{suministrosController.itemsAvailableSelectOne}"
+                                           var="codSuministrosItem"
+                                           itemValue="#{codSuministrosItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSuministrosProveedorLabel_codProveedor}" for="codProveedor" />
+                        <p:selectOneMenu id="codProveedor" value="#{suministrosProveedorController.selected.codProveedor}" required="true" requiredMessage="#{bundle.EditSuministrosProveedorRequiredMessage_codProveedor}">
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="codProveedorItem"
+                                           itemValue="#{codProveedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{suministrosProveedorController.create}" value="#{bundle.Save}" update="display,:SuministrosProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'SuministrosProveedorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SuministrosProveedorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

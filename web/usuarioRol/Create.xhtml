@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioRolCreateDlg" widgetVar="UsuarioRolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioRolTitle}">
+            <h:form id="UsuarioRolCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioRolController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioRolLabel_codUsuarioRol}" for="codUsuarioRol" />
+                        
+                        <p:inputText id="codUsuarioRol" value="#{usuarioRolController.selected.codUsuarioRol}" title="#{bundle.CreateUsuarioRolTitle_codUsuarioRol}" required="true" requiredMessage="#{bundle.CreateUsuarioRolRequiredMessage_codUsuarioRol}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUsuarioRolLabel_codUsuario}" for="codUsuario" />
+                        <p:selectOneMenu id="codUsuario" value="#{usuarioRolController.selected.codUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRolRequiredMessage_codUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="codUsuarioItem"
+                                           itemValue="#{codUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioRolLabel_codRol}" for="codRol" />
+                        <p:selectOneMenu id="codRol" value="#{usuarioRolController.selected.codRol}" required="true" requiredMessage="#{bundle.EditUsuarioRolRequiredMessage_codRol}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                           var="codRolItem"
+                                           itemValue="#{codRolItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioRolController.create}" value="#{bundle.Save}" update="display,:UsuarioRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioRolCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioRolCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

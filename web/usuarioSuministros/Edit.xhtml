@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioSuministrosEditDlg" widgetVar="UsuarioSuministrosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioSuministrosTitle}">
+            <h:form id="UsuarioSuministrosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioSuministrosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUsuarioSuministrosLabel_codUsuarioSuministro}" for="codUsuarioSuministro" />
+                        <p:inputText id="codUsuarioSuministro" value="#{usuarioSuministrosController.selected.codUsuarioSuministro}" title="#{bundle.EditUsuarioSuministrosTitle_codUsuarioSuministro}" required="true" requiredMessage="#{bundle.EditUsuarioSuministrosRequiredMessage_codUsuarioSuministro}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioSuministrosLabel_codUsuario}" for="codUsuario" />
+                        <p:selectOneMenu id="codUsuario" value="#{usuarioSuministrosController.selected.codUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioSuministrosRequiredMessage_codUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="codUsuarioItem"
+                                           itemValue="#{codUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUsuarioSuministrosLabel_codSuministros}" for="codSuministros" />
+                        <p:selectOneMenu id="codSuministros" value="#{usuarioSuministrosController.selected.codSuministros}" required="true" requiredMessage="#{bundle.EditUsuarioSuministrosRequiredMessage_codSuministros}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{suministrosController.itemsAvailableSelectOne}"
+                                           var="codSuministrosItem"
+                                           itemValue="#{codSuministrosItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioSuministrosController.update}" value="#{bundle.Save}" update="display,:UsuarioSuministrosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioSuministrosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioSuministrosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

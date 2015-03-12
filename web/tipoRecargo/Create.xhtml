@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoRecargoCreateDlg" widgetVar="TipoRecargoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoRecargoTitle}">
+            <h:form id="TipoRecargoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoRecargoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoRecargoLabel_codTipoRecargo}" for="codTipoRecargo" />
+                        
+                        <p:inputText id="codTipoRecargo" value="#{tipoRecargoController.selected.codTipoRecargo}" title="#{bundle.CreateTipoRecargoTitle_codTipoRecargo}" required="true" requiredMessage="#{bundle.CreateTipoRecargoRequiredMessage_codTipoRecargo}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                         <p:outputLabel value="#{bundle.CreateTipoRecargoLabel_nomTipoRecargo}" for="nomTipoRecargo" />
+                        
+                         <p:inputText id="nomTipoRecargo" value="#{tipoRecargoController.selected.nomTipoRecargo}" title="#{bundle.CreateTipoRecargoTitle_nomTipoRecargo}" required="true" requiredMessage="#{bundle.CreateTipoRecargoRequiredMessage_nomTipoRecargo}">
+                         <f:validateLength minimum="4" maximum="45"/>
+                         </p:inputText>
+                   
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoRecargoController.create}" value="#{bundle.Save}" update="display,:TipoRecargoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoRecargoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoRecargoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

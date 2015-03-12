@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorteUsuarioViewDlg" widgetVar="CorteUsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCorteUsuarioTitle}">
+            <h:form id="CorteUsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corteUsuarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCorteUsuarioLabel_codCorteUsuario}"/>
+                        <h:outputText value="#{corteUsuarioController.selected.codCorteUsuario}" title="#{bundle.ViewCorteUsuarioTitle_codCorteUsuario}"/>
+                        <h:outputText value="#{bundle.ViewCorteUsuarioLabel_codUsuario}"/>
+                        <h:outputText value="#{corteUsuarioController.selected.codUsuario}" title="#{bundle.ViewCorteUsuarioTitle_codUsuario}"/>
+                        <h:outputText value="#{bundle.ViewCorteUsuarioLabel_codCorte}"/>
+                        <h:outputText value="#{corteUsuarioController.selected.codCorte}" title="#{bundle.ViewCorteUsuarioTitle_codCorte}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CorteUsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

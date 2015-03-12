@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoSuministroCreateDlg" widgetVar="TipoSuministroCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoSuministroTitle}">
+            <h:form id="TipoSuministroCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoSuministroController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoSuministroLabel_codTipoSuministro}" for="codTipoSuministro" />
+                        <p:inputText id="codTipoSuministro" value="#{tipoSuministroController.selected.codTipoSuministro}" title="#{bundle.CreateTipoSuministroTitle_codTipoSuministro}" required="true" requiredMessage="#{bundle.CreateTipoSuministroRequiredMessage_codTipoSuministro}">
+                        <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateTipoSuministroLabel_descripcionSuministro}" for="descripcionSuministro" />
+                        
+                        <p:inputText id="descripcionSuministro" value="#{tipoSuministroController.selected.descripcionSuministro}" title="#{bundle.CreateTipoSuministroTitle_descripcionSuministro}" required="true" requiredMessage="#{bundle.CreateTipoSuministroRequiredMessage_descripcionSuministro}">
+                        <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoSuministroController.create}" value="#{bundle.Save}" update="display,:TipoSuministroListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoSuministroCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoSuministroCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

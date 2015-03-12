@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermisoRolCreateDlg" widgetVar="PermisoRolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePermisoRolTitle}">
+            <h:form id="PermisoRolCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{permisoRolController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePermisoRolLabel_codPermisoRol}" for="codPermisoRol" />
+                       
+                        <p:inputText id="codPermisoRol" value="#{permisoRolController.selected.codPermisoRol}" title="#{bundle.CreatePermisoRolTitle_codPermisoRol}" required="true" requiredMessage="#{bundle.CreatePermisoRolRequiredMessage_codPermisoRol}">
+                        
+                         <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreatePermisoRolLabel_codRol}" for="codRol" />
+                        <p:selectOneMenu id="codRol" value="#{permisoRolController.selected.codRol}" required="true" requiredMessage="#{bundle.EditPermisoRolRequiredMessage_codRol}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                           var="codRolItem"
+                                           itemValue="#{codRolItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePermisoRolLabel_codPermiso}" for="codPermiso" />
+                        <p:selectOneMenu id="codPermiso" value="#{permisoRolController.selected.codPermiso}" required="true" requiredMessage="#{bundle.EditPermisoRolRequiredMessage_codPermiso}">
+                            <f:selectItems value="#{permisoController.itemsAvailableSelectOne}"
+                                           var="codPermisoItem"
+                                           itemValue="#{codPermisoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{permisoRolController.create}" value="#{bundle.Save}" update="display,:PermisoRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'PermisoRolCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PermisoRolCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

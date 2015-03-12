@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaReconexionCreateDlg" widgetVar="FacturaReconexionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFacturaReconexionTitle}">
+            <h:form id="FacturaReconexionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaReconexionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFacturaReconexionLabel_codFacturaReconexion}" for="codFacturaReconexion" />
+                       
+                        <p:inputText id="codFacturaReconexion" value="#{facturaReconexionController.selected.codFacturaReconexion}" title="#{bundle.CreateFacturaReconexionTitle_codFacturaReconexion}" required="true" requiredMessage="#{bundle.CreateFacturaReconexionRequiredMessage_codFacturaReconexion}">
+                        
+                         <f:validateLongRange minimum="1" maximum="10000" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateFacturaReconexionLabel_codReconexion}" for="codReconexion" />
+                        <p:selectOneMenu id="codReconexion" value="#{facturaReconexionController.selected.codReconexion}" required="true" requiredMessage="#{bundle.EditFacturaReconexionRequiredMessage_codReconexion}">
+                            <f:selectItems value="#{reconexionController.itemsAvailableSelectOne}"
+                                           var="codReconexionItem"
+                                           itemValue="#{codReconexionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateFacturaReconexionLabel_codFactura}" for="codFactura" />
+                        <p:selectOneMenu id="codFactura" value="#{facturaReconexionController.selected.codFactura}" required="true" requiredMessage="#{bundle.EditFacturaReconexionRequiredMessage_codFactura}">
+                            <f:selectItems value="#{facturaController.itemsAvailableSelectOne}"
+                                           var="codFacturaItem"
+                                           itemValue="#{codFacturaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaReconexionController.create}" value="#{bundle.Save}" update="display,:FacturaReconexionListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaReconexionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaReconexionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
